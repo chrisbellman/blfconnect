@@ -49,7 +49,7 @@ User.prototype.del = function (callback) {
         'WHERE ID(user) = {userId}',
         'DELETE user',
         'WITH user',
-        'MATCH (user) -[rel:follows]- (other)',
+        'MATCH (user) -[rel:connection]- (other)',
         'DELETE rel',
     ].join('\n')
 
@@ -63,17 +63,36 @@ User.prototype.del = function (callback) {
 };
 
 User.prototype.follow = function (other, callback) {
-    this._node.createRelationshipTo(other._node, 'follows', {}, function (err, rel) {
+    this._node.createRelationshipTo(other._node, 'connection', {'color':'green'}, function (err, rel) {
         callback(err);
     });
 };
 
+// This is the equivalent of red
 User.prototype.unfollow = function (other, callback) {
     var query = [
-        'MATCH (user:User) -[rel:follows]-> (other:User)',
+        'MATCH (user:User) -[rel:connection]-> (other:User)',
         'WHERE ID(user) = {userId} AND ID(other) = {otherId}',
         'DELETE rel',
-    ].join('\n')
+    ].join('\n');
+
+    var params = {
+        userId: this.id,
+        otherId: other.id,
+    };
+
+    db.query(query, params, function (err) {
+        callback(err);
+    });
+};
+
+// Right now this is hardcoded to update relationship color to yellow
+User.prototype.updateRelationshiopParam = function (other, callback) {
+    var query = [
+        'MATCH (user:User) -[rel:connection]-> (other:User)',
+        'WHERE ID(user) = {userId} AND ID(other) = {otherId}',
+        'SET rel.color = \'yellow\'',
+    ].join('\n');
 
     var params = {
         userId: this.id,
@@ -91,7 +110,7 @@ User.prototype.getFollowingAndOthers = function (callback) {
     // query all users and whether we follow each one or not:
     var query = [
         'MATCH (user:User), (other:User)',
-        'OPTIONAL MATCH (user) -[rel:follows]-> (other)',
+        'OPTIONAL MATCH (user) -[rel:connection]-> (other)',
         'WHERE ID(user) = {userId}',
         'RETURN other, COUNT(rel)', // COUNT(rel) is a hack for 1 or 0
     ].join('\n')
