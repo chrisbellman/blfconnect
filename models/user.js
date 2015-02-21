@@ -62,13 +62,14 @@ User.prototype.del = function (callback) {
     });
 };
 
+// Might want to take the stuff out of {} and use another function to set color if there isn't...
 User.prototype.follow = function (other, callback) {
     this._node.createRelationshipTo(other._node, 'connection', {'color':'green'}, function (err, rel) {
         callback(err);
     });
 };
 
-// This is the equivalent of red
+// This won't be used because if a node goes from green to red, it might have other data / notes
 User.prototype.unfollow = function (other, callback) {
     var query = [
         'MATCH (user:User) -[rel:connection]-> (other:User)',
@@ -86,17 +87,19 @@ User.prototype.unfollow = function (other, callback) {
     });
 };
 
-// Right now this is hardcoded to update relationship color to yellow
-User.prototype.updateRelationshiopParam = function (other, callback) {
+User.prototype.updateRelationshipParam = function (other, callback, param, value) {
     var query = [
         'MATCH (user:User) -[rel:connection]-> (other:User)',
         'WHERE ID(user) = {userId} AND ID(other) = {otherId}',
-        'SET rel.color = \'yellow\'',
+        //'SET rel.color = \'yellow\'',
+		'SET rel.{paramName} = \'{paramValue}\'',
     ].join('\n');
 
     var params = {
         userId: this.id,
         otherId: other.id,
+		paramName: param,
+		paramValue: value,
     };
 
     db.query(query, params, function (err) {

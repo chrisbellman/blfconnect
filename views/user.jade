@@ -7,7 +7,7 @@ block content
         a(href='/users') Back to everyone
 
     if following.length
-        p #{user.name} is following #{following.length} users:
+        p #{user.name} is following #{following.length} user(s):
         // TODO should say 'user' if only one! ;)
         ul.users
             for other in following
