@@ -1,7 +1,10 @@
 extends layout
 
+block vars
+  - var h1 = "Users"
+
 block content
-    h1 Users
+    //h1 Users
 
     if users.length
         p Here are the current users:

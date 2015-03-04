@@ -380,10 +380,12 @@ head
       #page-wrapper
         .row
           .col-lg-12
-            - if (locals.h1)
-              h1.page-header #{h1}
+            script
+              var h1 = "#{h1}";
+            - if (h1 != "undefined")
+                h1.page-header #{h1}
             - else
-              h1.page-header Temp
+                h1.page-header Temp
             //h1.page-header Dashboard
           // /.col-lg-12
         // /.row
