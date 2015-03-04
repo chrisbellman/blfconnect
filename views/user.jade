@@ -1,7 +1,10 @@
 extends layout
 
+block vars
+  - var h1 = user.name
+
 block content
-    h1 #{user.name}
+    //h1 #{user.name}
 
     p
         a(href='/users') Back to everyone
