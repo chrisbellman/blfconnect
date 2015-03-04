@@ -1,0 +1,89 @@
+extends layout
+
+block vars
+  - var h1 = "Dashboard"
+
+block content
+    .row
+      .col-md-4
+        .panel.panel-green
+          .panel-heading
+            .row
+              .col-xs-3
+                i.fa.fa-smile-o.fa-5x
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              .col-xs-9.text-right
+                .huge 12
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                div Green Connections
+          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+          a(href='#')
+            .panel-footer
+              span.pull-left View Green Connections
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              span.pull-right
+                i.fa.fa-arrow-circle-right
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              .clearfix
+      | &#x9;&#x9;&#x9;&#x9;
+      .col-md-4
+        .panel.panel-yellow
+          .panel-heading
+            .row
+              .col-xs-3
+                i.fa.fa-meh-o.fa-5x
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              .col-xs-9.text-right
+                .huge 124
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                div Yellow Connections
+          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+          a(href='#')
+            .panel-footer
+              span.pull-left View Yellow Connections
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              span.pull-right
+                i.fa.fa-arrow-circle-right
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              .clearfix
+      | &#x9;&#x9;&#x9;&#x9;
+      .col-md-4
+        .panel.panel-red
+          .panel-heading
+            .row
+              .col-xs-3
+                i.fa.fa-frown-o.fa-5x
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              .col-xs-9.text-right
+                .huge 13
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                div Red Connections
+          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+          a(href='#')
+            .panel-footer
+              span.pull-left View Red Connections
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              span.pull-right
+                i.fa.fa-arrow-circle-right
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              .clearfix
+
+    .row
+      .col-md-4
+        .panel.panel-default
+            .panel-heading
+              | Sarah Mangia
+              .pull-right
+                // <div class="btn-group">
+                button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button')
+                | &#x9;&#x9;&#x9;&#x9;
+                button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button')
+                | &#x9;&#x9;&#x9;&#x9;
+                button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button')
+            // /.panel-heading
+            #panel-background.panel-body.user-panel-green
+              .user-picture
+                img(src='pages/img/sarah.png')
+            // /.panel-body
+      // /.panel
+    // /.row

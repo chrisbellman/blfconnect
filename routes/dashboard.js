@@ -1,3 +1,3 @@
 exports.list = function (req, res, next) {
-        res.render('bootstrap', {});
+        res.render('dashboard', {});
 };
