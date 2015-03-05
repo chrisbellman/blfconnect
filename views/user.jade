@@ -12,8 +12,6 @@ block content
     .row
 
       if following.length
-          // p #{user.name} is following #{following.length} user(s):
-          // TODO should say 'user' if only one! ;)
           for other in following
               .col-md-4
                   .panel.panel-default
@@ -29,12 +27,7 @@ block content
                       #panel-background.panel-body.user-panel-green
                         .user-picture
                           img(src='../pages/img/sarah.png')
-
-          //                li.user
-          //                    form(action='/users/#{user.id}/unfollow', method='POST')
-          //                        a(href='/users/#{other.id}') #{other.name}
-          //                        input(type='hidden', name='user[id]', value='#{other.id}')
-          //                        input(type='submit', class='unfollow', value='x')
+                          
       else
           p #{user.name} isn't following anyone currently.
 
@@ -54,30 +47,21 @@ block content
                       #panel-background.panel-body.user-panel-red
                         .user-picture
                           img(src='../pages/img/sarah.png')
-
-
-          //        form(action='/users/#{user.id}/follow', method='POST')
-          //            p Add someone for #{user.name} to follow:
-          //            label
-          //                select(name='user[id]', required)
-          //                    option(value='')
-          //                    for user in others
-          //                        option(value='#{user.id}') #{user.name}
-          //            input(type='submit', value='Follow')
+                          
       else
-          p There's no one else left for #{user.name} to follow!
+          p There are no users.
 
-        // THIS IS FOR EDIT PROFILE PAGE BASICALLY BUT NOT HERE
-        //    form(action='/users/#{user.id}', method='POST')
-        //        p Edit this user:
-        //        input(type='text', name='name', placeholder='#{user.name}', required)
-        //        input(type='submit', value='Update')
-        //
-        //    form(action='/users/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
-        //        p And if you're feeling destructive…
-        //        input(type='hidden', name='_method', value='DELETE')
-        //        input(type='submit', value='Delete User')
-
+          // THIS IS FOR EDIT PROFILE PAGE BASICALLY BUT NOT HERE
+          //    form(action='/users/#{user.id}', method='POST')
+          //        p Edit this user:
+          //        input(type='text', name='name', placeholder='#{user.name}', required)
+          //        input(type='submit', value='Update')
+          //
+          //    form(action='/users/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
+          //        p And if you're feeling destructive…
+          //        input(type='hidden', name='_method', value='DELETE')
+          //        input(type='submit', value='Delete User')
+        
 block scripts
     script.
       $('.green-button').click( function() {
@@ -87,8 +71,7 @@ block scripts
             type: 'post',
             data: $(this),
             success: function(data) {
-              alert("SUCCESS");
-              $(element).closest('.col-md-4').hide();
+              $(element).closest('.panel').find('#panel-background').removeClass('user-panel-red').addClass('user-panel-green');
             }
         });
       });
@@ -102,8 +85,7 @@ block scripts
             type: 'post',
             data: $(this),
             success: function(data) {
-              alert("SUCCESS");
-              $(element).closest('.col-md-4').hide();
+              $(element).closest('.panel').find('#panel-background').removeClass('user-panel-green').addClass('user-panel-red');
             }
         });
       });
