@@ -7,15 +7,31 @@ block content
     //h1 Users
 
     if users.length
-        p Here are the current users:
-        ul.users
-            for user in users
-                li.user
-                    a(href='/users/#{user.id}') #{user.name}
+      .row
+        for user in users
+          .col-md-4
+            .panel.panel-default
+                .panel-heading
+                  a(href='/users/#{user.id}') #{user.name}
+                  .pull-right
+                    // <div class="btn-group">
+                    button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button')
+                    | &#x9;&#x9;&#x9;&#x9;
+                    button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button')
+                    | &#x9;&#x9;&#x9;&#x9;
+                    button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button')
+                // /.panel-heading
+                #panel-background.panel-body.user-panel-green
+                  .user-picture
+                    img(src='pages/img/sarah.png')
+                      
     else
-        p There are no users currently.
-
-    form(action='', method='POST')
-        p Create a new user:
-        input(type='text', name='name', placeholder='Name', required)
-        input(type='submit', value='Create')
+      p There are no users currently.
+      
+    .row
+      .col-md-4
+        form(action='', method='POST')
+          .form-group
+              label(for='inputUser') Create a new user
+              input#inputUser.form-control(type='text', name='name', placeholder="Enter user's name", required)
+            button.btn.btn-success(type='submit', value='Create') Create
