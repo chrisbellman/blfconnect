@@ -9,73 +9,101 @@ block content
     p
         a(href='/users') Back to everyone; this needs to change
 
-    if following.length
-        p #{user.name} is following #{following.length} user(s):
-        // TODO should say 'user' if only one! ;)
-        .row
-            for other in following
-                .col-md-4
-                    .panel.panel-default
-                        .panel-heading
-                          a(href='/users/#{other.id}') #{other.name}
-                          .pull-right
-                            // <div class="btn-group">
-                            button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button')
-                            | &#x9;&#x9;&#x9;&#x9;
-                            button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button')
-                            | &#x9;&#x9;&#x9;&#x9;
-                            form(action='/users/#{user.id}/unfollow', method='POST')
-                              //a(href='/users/#{other.id}') #{other.name}
-                              input(type='hidden', name='user[id]', value='#{other.id}')
-                              //input(type='submit', class='unfollow', value='x')
-                              button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='submit', class='unfollow')
-                        // /.panel-heading
-                        #panel-background.panel-body.user-panel-green
-                          .user-picture
-                            img(src='../pages/img/sarah.png')
-                            
-        //                li.user
-        //                    form(action='/users/#{user.id}/unfollow', method='POST')
-        //                        a(href='/users/#{other.id}') #{other.name}
-        //                        input(type='hidden', name='user[id]', value='#{other.id}')
-        //                        input(type='submit', class='unfollow', value='x')
-    else
-        p #{user.name} isn't following anyone currently.
+    .row
 
-    if others.length
-        form(action='/users/#{user.id}/follow', method='POST')
-            p Add someone for #{user.name} to follow:
-            label
-                select(name='user[id]', required)
-                    option(value='')
-                    for user in others
-                        option(value='#{user.id}') #{user.name}
-            input(type='submit', value='Follow')
-    else
-        p There's no one else left for #{user.name} to follow!
+      if following.length
+          // p #{user.name} is following #{following.length} user(s):
+          // TODO should say 'user' if only one! ;)
+          for other in following
+              .col-md-4
+                  .panel.panel-default
+                      .panel-heading #{other.name}
+                        .pull-right
+                          // <div class="btn-group">
+                          button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button', name='user[id]', value='#{other.id}')
+                          | &#x9;&#x9;&#x9;&#x9;
+                          button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button', name='user[id]', value='#{other.id}')
+                          | &#x9;&#x9;&#x9;&#x9;
+                          button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='user[id]', value='#{other.id}')
+                      // /.panel-heading
+                      #panel-background.panel-body.user-panel-green
+                        .user-picture
+                          img(src='../pages/img/sarah.png')
 
-      // THIS IS FOR EDIT PROFILE PAGE BASICALLY BUT NOT HERE
-      //    form(action='/users/#{user.id}', method='POST')
-      //        p Edit this user:
-      //        input(type='text', name='name', placeholder='#{user.name}', required)
-      //        input(type='submit', value='Update')
-      //
-      //    form(action='/users/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
-      //        p And if you're feeling destructive…
-      //        input(type='hidden', name='_method', value='DELETE')
-      //        input(type='submit', value='Delete User')
+          //                li.user
+          //                    form(action='/users/#{user.id}/unfollow', method='POST')
+          //                        a(href='/users/#{other.id}') #{other.name}
+          //                        input(type='hidden', name='user[id]', value='#{other.id}')
+          //                        input(type='submit', class='unfollow', value='x')
+      else
+          p #{user.name} isn't following anyone currently.
+
+      if others.length
+          for user in others
+              .col-md-4
+                  .panel.panel-default
+                      .panel-heading #{user.name}
+                        .pull-right
+                          // <div class="btn-group">
+                          button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button', name='user[id]', value='#{user.id}')
+                          | &#x9;&#x9;&#x9;&#x9;
+                          button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button', name='user[id]', value='#{user.id}')
+                          | &#x9;&#x9;&#x9;&#x9;
+                          button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='user[id]', value='#{user.id}')
+                      // /.panel-heading
+                      #panel-background.panel-body.user-panel-red
+                        .user-picture
+                          img(src='../pages/img/sarah.png')
+
+
+          //        form(action='/users/#{user.id}/follow', method='POST')
+          //            p Add someone for #{user.name} to follow:
+          //            label
+          //                select(name='user[id]', required)
+          //                    option(value='')
+          //                    for user in others
+          //                        option(value='#{user.id}') #{user.name}
+          //            input(type='submit', value='Follow')
+      else
+          p There's no one else left for #{user.name} to follow!
+
+        // THIS IS FOR EDIT PROFILE PAGE BASICALLY BUT NOT HERE
+        //    form(action='/users/#{user.id}', method='POST')
+        //        p Edit this user:
+        //        input(type='text', name='name', placeholder='#{user.name}', required)
+        //        input(type='submit', value='Update')
+        //
+        //    form(action='/users/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
+        //        p And if you're feeling destructive…
+        //        input(type='hidden', name='_method', value='DELETE')
+        //        input(type='submit', value='Delete User')
 
 block scripts
     script.
       $('.green-button').click( function() {
-        alert("TEST");
-        //        $.ajax({
-        //            url: 'some-url',
-        //            type: 'post',
-        //            dataType: 'json',
-        //            data: $('form#myForm').serialize(),
-        //            success: function(data) {
-        //               //... do something with the data...
-        //            }
-        //        });
+        var element = this;
+        $.ajax({
+            url: '/users/#{user.id}/follow',
+            type: 'post',
+            data: $(this),
+            success: function(data) {
+              alert("SUCCESS");
+              $(element).closest('.col-md-4').hide();
+            }
+        });
+      });
+      
+      // NEED YELLOW
+      
+      $('.red-button').click( function() {
+        var element = this;
+        $.ajax({
+            url: '/users/#{user.id}/unfollow',
+            type: 'post',
+            data: $(this),
+            success: function(data) {
+              alert("SUCCESS");
+              $(element).closest('.col-md-4').hide();
+            }
+        });
       });
