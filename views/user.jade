@@ -7,18 +7,38 @@ block content
     //h1 #{user.name}
 
     p
-        a(href='/users') Back to everyone
+        a(href='/users') Back to everyone; this needs to change
 
     if following.length
         p #{user.name} is following #{following.length} user(s):
         // TODO should say 'user' if only one! ;)
-        ul.users
+        .row
             for other in following
-                li.user
-                    form(action='/users/#{user.id}/unfollow', method='POST')
-                        a(href='/users/#{other.id}') #{other.name}
-                        input(type='hidden', name='user[id]', value='#{other.id}')
-                        input(type='submit', class='unfollow', value='x')
+                .col-md-4
+                    .panel.panel-default
+                        .panel-heading
+                          a(href='/users/#{other.id}') #{other.name}
+                          .pull-right
+                            // <div class="btn-group">
+                            button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button')
+                            | &#x9;&#x9;&#x9;&#x9;
+                            button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button')
+                            | &#x9;&#x9;&#x9;&#x9;
+                            form(action='/users/#{user.id}/unfollow', method='POST')
+                              //a(href='/users/#{other.id}') #{other.name}
+                              input(type='hidden', name='user[id]', value='#{other.id}')
+                              //input(type='submit', class='unfollow', value='x')
+                              button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='submit', class='unfollow')
+                        // /.panel-heading
+                        #panel-background.panel-body.user-panel-green
+                          .user-picture
+                            img(src='../pages/img/sarah.png')
+                            
+        //                li.user
+        //                    form(action='/users/#{user.id}/unfollow', method='POST')
+        //                        a(href='/users/#{other.id}') #{other.name}
+        //                        input(type='hidden', name='user[id]', value='#{other.id}')
+        //                        input(type='submit', class='unfollow', value='x')
     else
         p #{user.name} isn't following anyone currently.
 
@@ -34,12 +54,28 @@ block content
     else
         p There's no one else left for #{user.name} to follow!
 
-    form(action='/users/#{user.id}', method='POST')
-        p Edit this user:
-        input(type='text', name='name', placeholder='#{user.name}', required)
-        input(type='submit', value='Update')
+      // THIS IS FOR EDIT PROFILE PAGE BASICALLY BUT NOT HERE
+      //    form(action='/users/#{user.id}', method='POST')
+      //        p Edit this user:
+      //        input(type='text', name='name', placeholder='#{user.name}', required)
+      //        input(type='submit', value='Update')
+      //
+      //    form(action='/users/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
+      //        p And if you're feeling destructive…
+      //        input(type='hidden', name='_method', value='DELETE')
+      //        input(type='submit', value='Delete User')
 
-    form(action='/users/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
-        p And if you're feeling destructive…
-        input(type='hidden', name='_method', value='DELETE')
-        input(type='submit', value='Delete User')
+block scripts
+    script.
+      $('.green-button').click( function() {
+        alert("TEST");
+        //        $.ajax({
+        //            url: 'some-url',
+        //            type: 'post',
+        //            dataType: 'json',
+        //            data: $('form#myForm').serialize(),
+        //            success: function(data) {
+        //               //... do something with the data...
+        //            }
+        //        });
+      });
