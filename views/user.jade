@@ -1,13 +1,13 @@
 extends layout
 
 block vars
-  - var h1 = user.name
+  - var h1 = "Logged in as: " + user.name
 
 block content
     //h1 #{user.name}
 
     p
-        a(href='/users') Back to everyone; this needs to change
+        a(href='/users') "Log Out" / Back to Everyone
 
     .row
 
@@ -28,8 +28,8 @@ block content
                         .user-picture
                           img(src='../pages/img/sarah.png')
                           
-      else
-          p #{user.name} isn't following anyone currently.
+      //else
+      //    p #{user.name} isn't following anyone currently.
 
       if others.length
           for user in others
