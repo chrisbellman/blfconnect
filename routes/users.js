@@ -23,7 +23,8 @@ exports.create = function (req, res, next) {
         name: req.body['name']
     }, function (err, user) {
         if (err) return next(err);
-        res.redirect('/users/' + user.id);
+        //res.redirect('/users/' + user.id);
+        res.redirect('/users');
     });
 };
 

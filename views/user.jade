@@ -13,7 +13,7 @@ block content
 
       if following.length
           for other in following
-              .col-md-4
+              .col-md-3
                   .panel.panel-default
                       .panel-heading #{other.name}
                         .pull-right
@@ -33,7 +33,7 @@ block content
 
       if others.length
           for user in others
-              .col-md-4
+              .col-md-3
                   .panel.panel-default
                       .panel-heading #{user.name}
                         .pull-right
@@ -50,17 +50,24 @@ block content
                           
       else
           p There are no users.
+         
+    .row
+      .col-md-4
+        form(action='/users/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
+          p And if you're feeling destructive…
+          input(type='hidden', name='_method', value='DELETE')
+          button.btn.btn-danger(type='submit', value='Delete User') Delete User
 
-          // THIS IS FOR EDIT PROFILE PAGE BASICALLY BUT NOT HERE
-          //    form(action='/users/#{user.id}', method='POST')
-          //        p Edit this user:
-          //        input(type='text', name='name', placeholder='#{user.name}', required)
-          //        input(type='submit', value='Update')
-          //
-          //    form(action='/users/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
-          //        p And if you're feeling destructive…
-          //        input(type='hidden', name='_method', value='DELETE')
-          //        input(type='submit', value='Delete User')
+            // THIS IS FOR EDIT PROFILE PAGE BASICALLY BUT NOT HERE
+            //    form(action='/users/#{user.id}', method='POST')
+            //        p Edit this user:
+            //        input(type='text', name='name', placeholder='#{user.name}', required)
+            //        input(type='submit', value='Update')
+            //
+            //    form(action='/users/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
+            //        p And if you're feeling destructive…
+            //        input(type='hidden', name='_method', value='DELETE')
+            //        input(type='submit', value='Delete User')
         
 block scripts
     script.
@@ -71,12 +78,22 @@ block scripts
             type: 'post',
             data: $(this),
             success: function(data) {
-              $(element).closest('.panel').find('#panel-background').removeClass('user-panel-red').addClass('user-panel-green');
+              $(element).closest('.panel').find('#panel-background').removeClass('user-panel-red').removeClass('user-panel-yellow').addClass('user-panel-green');
             }
         });
       });
       
-      // NEED YELLOW
+      $('.yellow-button').click( function() {
+        var element = this;
+        $.ajax({
+            url: '/users/#{user.id}/yellow',
+            type: 'post',
+            data: $(this),
+            success: function(data) {
+              $(element).closest('.panel').find('#panel-background').removeClass('user-panel-red').removeClass('user-panel-green').addClass('user-panel-yellow');
+            }
+        });
+      });
       
       $('.red-button').click( function() {
         var element = this;
@@ -85,7 +102,7 @@ block scripts
             type: 'post',
             data: $(this),
             success: function(data) {
-              $(element).closest('.panel').find('#panel-background').removeClass('user-panel-green').addClass('user-panel-red');
+              $(element).closest('.panel').find('#panel-background').removeClass('user-panel-green').removeClass('user-panel-yellow').addClass('user-panel-red');
             }
         });
       });
