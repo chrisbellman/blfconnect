@@ -35,6 +35,12 @@ app.locals({
 app.get('/', routes.site.index);
 app.get('/dashboard', routes.dashboard.list);
 
+app.get('/profile', routes.profile.list);
+app.post('/profile', routes.profile.create);
+app.get('/profile/:id', routes.profile.show);
+app.post('/profile/:id', routes.profile.edit);
+app.del('/profile/:id', routes.profile.del);
+
 app.get('/users', routes.users.list);
 app.post('/users', routes.users.create);
 app.get('/users/:id', routes.users.show);

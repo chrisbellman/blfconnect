@@ -31,7 +31,6 @@ Object.defineProperty(User.prototype, 'name', {
     }
 });
 
-// I ADDED THIS
 Object.defineProperty(User.prototype, 'major', {
     get: function () {
         return this._node.data['major'];
