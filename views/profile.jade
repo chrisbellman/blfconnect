@@ -1,42 +1,25 @@
 extends layout
 
 block vars
-  - var h1 = "Admin User List"
+  - var h1 = "Profile for " + user.name
 
 block content
     //h1 Users
 
-    p Click on a user below to "log in" as that user
-
-    if users.length
-      .row
-        for user in users
-          .col-md-3.col-sm-4
-            .panel.panel-default
-                .panel-heading
-                  a(href='/users/#{user.id}') #{user.name}
-                  //                  .pull-right
-                  //                    // <div class="btn-group">
-                  //                    button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button')
-                  //                    | &#x9;&#x9;&#x9;&#x9;
-                  //                    button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button')
-                  //                    | &#x9;&#x9;&#x9;&#x9;
-                  //                    button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button')
-                // /.panel-heading
-                //#panel-background.panel-body.user-panel-green
-                #panel-background.panel-body
-                  .user-picture
-                    img(src='pages/img/sarah.png')
-                      
-    else
-      p There are no users currently.
-      
     .row
-      .col-md-6(style='padding-bottom: 100px')
-        form(action='', method='POST')
-          .form-inline
-            .form-group(style="width: 70%")
-              //label(for='inputUser') Create a new user
-              input#inputUser.form-control(type='text', name='name', placeholder="Enter a new user's name", style='width: 100%', required)
-              input#inputUser.form-control(type='text', name='major', placeholder="Enter a new user's major", style='width: 100%', required)
-            button.btn.btn-success(type='submit', value='Create', style='margin-left: 5px;') Create
+      .col-md-3.col-sm-4
+        .panel.panel-default
+            .panel-heading
+              a(href='/users/#{user.id}') #{user.name}
+              //                  .pull-right
+              //                    // <div class="btn-group">
+              //                    button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button')
+              //                    | &#x9;&#x9;&#x9;&#x9;
+              //                    button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button')
+              //                    | &#x9;&#x9;&#x9;&#x9;
+              //                    button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button')
+            // /.panel-heading
+            //#panel-background.panel-body.user-panel-green
+            #panel-background.panel-body
+              .user-picture
+                img(src='pages/img/sarah.png')

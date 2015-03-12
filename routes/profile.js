@@ -35,13 +35,14 @@ exports.create = function (req, res, next) {
 exports.show = function (req, res, next) {
     User.get(req.params.id, function (err, user) {
         if (err) return next(err);
+        // I THINK YOU NEED TO DELETE LIKE ALL OF THIS
         // TODO also fetch and show followers? (not just follow*ing*)
         user.getFollowingAndOthers(function (err, following, others) {
             if (err) return next(err);
-            res.render('user', {
+            res.render('profile', {
                 user: user,
-                //following: following,
-                //others: others
+                following: following,
+                others: others
             });
         });
     });
