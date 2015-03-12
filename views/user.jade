@@ -13,7 +13,7 @@ block content
 
       if following.length
           for other in following
-              .col-md-3
+              .col-md-3.col-sm-4
                   .panel.panel-default
                       .panel-heading #{other.name}
                         .pull-right
@@ -33,7 +33,7 @@ block content
 
       if others.length
           for user in others
-              .col-md-3
+              .col-md-3.col-sm-4
                   .panel.panel-default
                       .panel-heading #{user.name}
                         .pull-right
@@ -52,7 +52,7 @@ block content
           p There are no users.
          
     .row
-      .col-md-4
+      .col-md-4(style='padding-bottom: 100px')
         form(action='/users/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
           p And if you're feeling destructive…
           input(type='hidden', name='_method', value='DELETE')

@@ -20,7 +20,8 @@ exports.list = function (req, res, next) {
  */
 exports.create = function (req, res, next) {
     User.create({
-        name: req.body['name']
+        name: req.body['name'],
+        major: req.body['major']
     }, function (err, user) {
         if (err) return next(err);
         //res.redirect('/users/' + user.id);

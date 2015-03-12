@@ -11,7 +11,7 @@ block content
     if users.length
       .row
         for user in users
-          .col-md-3
+          .col-md-3.col-sm-4
             .panel.panel-default
                 .panel-heading
                   a(href='/users/#{user.id}') #{user.name}
@@ -32,9 +32,11 @@ block content
       p There are no users currently.
       
     .row
-      .col-md-4
+      .col-md-6(style='padding-bottom: 100px')
         form(action='', method='POST')
-          .form-group
-              label(for='inputUser') Create a new user
-              input#inputUser.form-control(type='text', name='name', placeholder="Enter user's name", required)
-            button.btn.btn-success(type='submit', value='Create') Create
+          .form-inline
+            .form-group(style="width: 70%")
+              //label(for='inputUser') Create a new user
+              input#inputUser.form-control(type='text', name='name', placeholder="Enter a new user's name", style='width: 100%', required)
+              input#inputUser.form-control(type='text', name='major', placeholder="Enter a new user's major", style='width: 100%', required)
+            button.btn.btn-success(type='submit', value='Create', style='margin-left: 5px;') Create

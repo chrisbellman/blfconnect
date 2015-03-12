@@ -31,6 +31,16 @@ Object.defineProperty(User.prototype, 'name', {
     }
 });
 
+// I ADDED THIS
+Object.defineProperty(User.prototype, 'major', {
+    get: function () {
+        return this._node.data['major'];
+    },
+    set: function (major) {
+        this._node.data['major'] = major;
+    }
+});
+
 // public instance methods:
 
 User.prototype.save = function (callback) {
