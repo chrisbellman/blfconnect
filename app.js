@@ -8,6 +8,12 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+//ADDED
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+//END ADD
+
 var app = express();
 
 // all environments
@@ -32,14 +38,12 @@ app.locals({
 
 // Routes
 
+
+
+
 app.get('/', routes.site.index);
 app.get('/dashboard', routes.dashboard.list);
 
-app.get('/profile', routes.profile.list);
-app.post('/profile', routes.profile.create);
-app.get('/profile/:id', routes.profile.show);
-app.post('/profile/:id', routes.profile.edit);
-app.del('/profile/:id', routes.profile.del);
 
 app.get('/users', routes.users.list);
 app.post('/users', routes.users.create);

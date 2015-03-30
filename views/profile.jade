@@ -7,19 +7,53 @@ block content
     //h1 Users
 
     .row
-      .col-md-3.col-sm-4
+      .col-md-4
         .panel.panel-default
-            .panel-heading
-              a(href='/users/#{user.id}') #{user.name}
-              //                  .pull-right
-              //                    // <div class="btn-group">
-              //                    button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button')
-              //                    | &#x9;&#x9;&#x9;&#x9;
-              //                    button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button')
-              //                    | &#x9;&#x9;&#x9;&#x9;
-              //                    button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button')
-            // /.panel-heading
-            //#panel-background.panel-body.user-panel-green
-            #panel-background.panel-body
+            .panel-heading #{user.name}
+              .pull-right
+                button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button', name='user[id]', value='#{user.id}')
+                | &#x9;&#x9;&#x9;&#x9;
+                button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button', name='user[id]', value='#{user.id}')
+                | &#x9;&#x9;&#x9;&#x9;
+                button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='user[id]', value='#{user.id}')
+            #panel-background.panel-body.user-panel-green
               .user-picture
-                img(src='/pages/img/sarah.png')
+                img(src='../pages/img/sarah.png')
+                
+block scripts
+    script.
+      $('.green-button').click( function() {
+        var element = this;
+        $.ajax({
+            url: '/users/#{user.id}/follow',
+            type: 'post',
+            data: $(this),
+            success: function(data) {
+              $(element).closest('.panel').find('#panel-background').removeClass('user-panel-red').removeClass('user-panel-yellow').addClass('user-panel-green');
+            }
+        });
+      });
+      
+      $('.yellow-button').click( function() {
+        var element = this;
+        $.ajax({
+            url: '/users/#{user.id}/yellow',
+            type: 'post',
+            data: $(this),
+            success: function(data) {
+              $(element).closest('.panel').find('#panel-background').removeClass('user-panel-red').removeClass('user-panel-green').addClass('user-panel-yellow');
+            }
+        });
+      });
+      
+      $('.red-button').click( function() {
+        var element = this;
+        $.ajax({
+            url: '/users/#{user.id}/unfollow',
+            type: 'post',
+            data: $(this),
+            success: function(data) {
+              $(element).closest('.panel').find('#panel-background').removeClass('user-panel-green').removeClass('user-panel-yellow').addClass('user-panel-red');
+            }
+        });
+      });

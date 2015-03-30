@@ -16,15 +16,13 @@ block content
               .col-md-3.col-sm-4
                   .panel.panel-default
                       .panel-heading
-                        a(href='/profile/#{other.id}') #{other.name}
+                        a(href='/users/#{user.id}/profile/#{other.id}') #{other.name}
                         .pull-right
-                          // <div class="btn-group">
                           button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button', name='user[id]', value='#{other.id}')
                           | &#x9;&#x9;&#x9;&#x9;
                           button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button', name='user[id]', value='#{other.id}')
                           | &#x9;&#x9;&#x9;&#x9;
                           button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='user[id]', value='#{other.id}')
-                      // /.panel-heading
                       #panel-background.panel-body.user-panel-green
                         .user-picture
                           img(src='../pages/img/sarah.png')
@@ -39,13 +37,11 @@ block content
                       .panel-heading
                         a(href='/profile/#{user.id}') #{user.name}
                         .pull-right
-                          // <div class="btn-group">
                           button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button', name='user[id]', value='#{user.id}')
                           | &#x9;&#x9;&#x9;&#x9;
                           button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button', name='user[id]', value='#{user.id}')
                           | &#x9;&#x9;&#x9;&#x9;
                           button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='user[id]', value='#{user.id}')
-                      // /.panel-heading
                       #panel-background.panel-body.user-panel-red
                         .user-picture
                           img(src='../pages/img/sarah.png')

@@ -1,3 +1,4 @@
+// THIS NEEDS TO BE UPDATED; MONGOOSE AND PASSPORT LOCAL MONGOOSE MISSING
 { "name": "BLFconnect"
 , "description": "App using Neo4j and NodeJS"
 , "version": "0.0.1"
@@ -7,7 +8,8 @@
   { "express": "~3.2.0"
   , "jade": "~0.26.3"
   , "neo4j": "~1.1"
-  , "bootstrap": "~3.3.2"
+  , "passport": "^0.2.1"
+  , "passport-local": "^1.0.0"
   }
 , "devDependencies":
   { "chai": "~1.8"
