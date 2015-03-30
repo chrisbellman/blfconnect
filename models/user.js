@@ -168,11 +168,12 @@ User.prototype.getFollowingAndOthers = function (callback) {
             // Loop through relationships and check against other.id
             for(var j = 0; j < relationships.length; j++) {
                 if(other.id == relationships[j].id) {
-                    // Do something with relationships[j].data.color
+                    other._node._data.data.color = relationships[j].data.color
                 }
             }
             //console.log(JSON.stringify(results[i]));
 
+            // A LOT OF THIS CODE IS UNNECESSARY WITH NEW COLORING
             if (user.id === other.id) {
                 continue;
             } else if (follows) {
@@ -181,6 +182,9 @@ User.prototype.getFollowingAndOthers = function (callback) {
                 others.push(other);
             }
         }
+      
+        console.log("FOLLOWING: " + JSON.stringify(following));
+        console.log("OTHERS: " + JSON.stringify(others));
 
         callback(null, following, others);
     });
