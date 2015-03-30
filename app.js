@@ -71,12 +71,12 @@ function loggedIn(req, res, next) {
 
 // ADDED THIS BUT IT SHOULD BE IN ROUTES
 
-app.get('/', loggedIn, function (req, res) {
+app.get('/', function (req, res) {
   res.render('index', { user : req.user });
 });
 
 app.get('/register', function(req, res) {
-  res.render('register', { });
+  res.render('register', {info: ""});
 });
 
 app.post('/register', function(req, res) {
