@@ -65,7 +65,9 @@ function loggedIn(req, res, next) {
     if (req.user) {
         next();
     } else {
-        res.redirect('/login');
+        // UNCOMMENT ONE OF THESE LINES. USED TO DISABLE AUTH FOR DEV.
+        //res.redirect('/login');
+        next();
     }
 }
 

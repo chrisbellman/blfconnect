@@ -71,6 +71,8 @@ User.prototype.del = function (callback) {
     });
 };
 
+// NEXT FEW FUNCTIONS; NEED TO CHECK IF RELATIONSHIP EXISTS. IF NO, ADD WITH CORRECT COLOR. IF YES, UPDATE.
+
 // Might want to take the stuff out of {} and use another function to set color if there isn't...
 User.prototype.follow = function (other, callback) {
     this._node.createRelationshipTo(other._node, 'connection', {'color':'green'}, function (err, rel) {
@@ -79,11 +81,14 @@ User.prototype.follow = function (other, callback) {
 };
 
 // This won't be used because if a node goes from green to red, it might have other data / notes
+// CHANGED TO NOT DELETE RELATIONSHIP
 User.prototype.unfollow = function (other, callback) {
     var query = [
         'MATCH (user:User) -[rel:connection]-> (other:User)',
         'WHERE ID(user) = {userId} AND ID(other) = {otherId}',
-        'DELETE rel',
+        //ADDED THIS LINE
+        'SET rel.color = \'red\'',
+        //'DELETE rel',
     ].join('\n');
 
     var params = {
@@ -96,6 +101,7 @@ User.prototype.unfollow = function (other, callback) {
     });
 };
 
+// NOT CURRENTLY USED
 User.prototype.updateRelationshipParam = function (other, callback, param, value) {
     var query = [
         'MATCH (user:User) -[rel:connection]-> (other:User)',
