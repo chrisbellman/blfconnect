@@ -136,6 +136,23 @@ User.prototype.getFollowingAndOthers = function (callback) {
     var params = {
         userId: this.id,
     };
+  
+    // ADDED
+    var relationships = [];
+  
+    this._node.outgoing('connection', function (err, results) {
+      if (err) return callback(err);
+      
+      for (var i = 0; i < results.length; i++) {
+          // USE THIS TO DEBUG RELATIONSHIP
+          console.log(JSON.stringify(results[i]));
+          // USE THIS TO GET RELATIONSHIP COLOR
+          console.log(results[i].data.color);
+          console.log(results[i].id);
+          relationships.push(results[i]);
+      }
+    });
+    // END ADD
 
     var user = this;
     db.query(query, params, function (err, results) {
@@ -147,6 +164,14 @@ User.prototype.getFollowingAndOthers = function (callback) {
         for (var i = 0; i < results.length; i++) {
             var other = new User(results[i]['other']);
             var follows = results[i]['COUNT(rel)'];
+          
+            // Loop through relationships and check against other.id
+            for(var j = 0; j < relationships.length; j++) {
+                if(other.id == relationships[j].id) {
+                    // Do something with relationships[j].data.color
+                }
+            }
+            //console.log(JSON.stringify(results[i]));
 
             if (user.id === other.id) {
                 continue;
