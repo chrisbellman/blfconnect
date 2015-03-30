@@ -61,8 +61,17 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
+function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
+
 // ADDED THIS BUT IT SHOULD BE IN ROUTES
-app.get('/', function (req, res) {
+
+app.get('/', loggedIn, function (req, res) {
   res.render('index', { user : req.user });
 });
 
@@ -103,22 +112,22 @@ app.get('/ping', function(req, res){
 mongoose.connect('mongodb://localhost/passport_local_mongoose');
 // END ADD
 
-app.get('/dashboard', routes.dashboard.list);
+app.get('/dashboard', loggedIn, routes.dashboard.list);
 
-app.get('/users:id/users', routes.profile.list);
-app.post('users:id/users', routes.profile.create);
-app.get('/users/:id/profile/:id', routes.profile.show);
-app.post('/users/:id/profile/:id', routes.profile.edit);
-app.del('/users/:id/profile/:id', routes.profile.del);
+app.get('/users:id/users', loggedIn, routes.profile.list);
+app.post('users:id/users', loggedIn, routes.profile.create);
+app.get('/users/:id/profile/:id', loggedIn, routes.profile.show);
+app.post('/users/:id/profile/:id', loggedIn, routes.profile.edit);
+app.del('/users/:id/profile/:id', loggedIn, routes.profile.del);
 
-app.get('/users', routes.users.list);
-app.post('/users', routes.users.create);
-app.get('/users/:id', routes.users.show);
-app.post('/users/:id', routes.users.edit);
-app.del('/users/:id', routes.users.del);
+app.get('/users', loggedIn, routes.users.list);
+app.post('/users', loggedIn, routes.users.create);
+app.get('/users/:id', loggedIn, routes.users.show);
+app.post('/users/:id', loggedIn, routes.users.edit);
+app.del('/users/:id', loggedIn, routes.users.del);
 
-app.post('/users/:id/follow', routes.users.follow);
-app.post('/users/:id/unfollow', routes.users.unfollow);
+app.post('/users/:id/follow', loggedIn, routes.users.follow);
+app.post('/users/:id/unfollow', loggedIn, routes.users.unfollow);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening at: http://localhost:%d/', app.get('port'));
