@@ -40,6 +40,15 @@ Object.defineProperty(User.prototype, 'major', {
     }
 });
 
+Object.defineProperty(User.prototype, 'color', {
+    get: function () {
+        return this._node.data['color'];
+    },
+    set: function (color) {
+        this._node.data['color'] = color;
+    }
+});
+
 // public instance methods:
 
 User.prototype.save = function (callback) {
@@ -101,20 +110,18 @@ User.prototype.unfollow = function (other, callback) {
     });
 };
 
-// NOT CURRENTLY USED
-User.prototype.updateRelationshipParam = function (other, callback, param, value) {
+// NOT CURRENTLY USED...or maybe now but need to generalize
+User.prototype.updateRelationshipParam = function (other, callback) {
     var query = [
         'MATCH (user:User) -[rel:connection]-> (other:User)',
         'WHERE ID(user) = {userId} AND ID(other) = {otherId}',
-        //'SET rel.color = \'yellow\'',
-		'SET rel.{paramName} = \'{paramValue}\'',
+        'SET rel.color = \'yellow\'',
+		//'SET rel.{paramName} = \'{paramValue}\'',
     ].join('\n');
 
     var params = {
         userId: this.id,
-        otherId: other.id,
-		paramName: param,
-		paramValue: value,
+        otherId: other.id
     };
 
     db.query(query, params, function (err) {
@@ -145,11 +152,18 @@ User.prototype.getFollowingAndOthers = function (callback) {
       
       for (var i = 0; i < results.length; i++) {
           // USE THIS TO DEBUG RELATIONSHIP
-          console.log(JSON.stringify(results[i]));
+          //console.log(JSON.stringify(results[i]));
           // USE THIS TO GET RELATIONSHIP COLOR
-          console.log(results[i].data.color);
-          console.log(results[i].id);
+          //console.log(results[i].data.color);
+          //console.log(results[i].id);
+          var temp = results[i].end.self.lastIndexOf('/');
+          temp = results[i].end.self.substr(temp+1);
+          results[i].data.endId = temp;
           relationships.push(results[i]);
+          
+          //console.log("TEMP = " + JSON.stringify(temp));
+          // THIS HAS COLOR IN IT:
+          //console.log("RESULTS[i] = " + JSON.stringify(results[i]));
       }
     });
     // END ADD
@@ -165,15 +179,19 @@ User.prototype.getFollowingAndOthers = function (callback) {
             var other = new User(results[i]['other']);
             var follows = results[i]['COUNT(rel)'];
           
+            //console.log(JSON.stringify(other));
+          
             // Loop through relationships and check against other.id
             for(var j = 0; j < relationships.length; j++) {
-                if(other.id == relationships[j].id) {
+                //console.log("OTHER ID = " + other.id);
+                //console.log("RELATIONSHIPS = " + relationships[j].id);
+                if(other.id == relationships[j].data.endId) {
                     other._node._data.data.color = relationships[j].data.color
                 }
             }
             //console.log(JSON.stringify(results[i]));
 
-            // A LOT OF THIS CODE IS UNNECESSARY WITH NEW COLORING
+            // A LOT OF THIS CODE IS UNNECESSARY WITH NEW COLOR ATTRIBUTE
             if (user.id === other.id) {
                 continue;
             } else if (follows) {
@@ -183,8 +201,8 @@ User.prototype.getFollowingAndOthers = function (callback) {
             }
         }
       
-        console.log("FOLLOWING: " + JSON.stringify(following));
-        console.log("OTHERS: " + JSON.stringify(others));
+        //console.log("FOLLOWING: " + JSON.stringify(following));
+        //console.log("OTHERS: " + JSON.stringify(others));
 
         callback(null, following, others);
     });

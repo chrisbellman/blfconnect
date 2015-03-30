@@ -130,6 +130,7 @@ app.del('/users/:id', loggedIn, routes.users.del);
 
 app.post('/users/:id/follow', loggedIn, routes.users.follow);
 app.post('/users/:id/unfollow', loggedIn, routes.users.unfollow);
+app.post('/users/:id/yellow', loggedIn, routes.users.updateRelationshipParam);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening at: http://localhost:%d/', app.get('port'));

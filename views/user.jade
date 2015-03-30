@@ -2,9 +2,9 @@ extends layout
 
 block vars
   - var h1 = "Logged in as: " + user.name
+  //- console.log(JSON.stringify(following))
 
 block content
-    //h1 #{user.name}
 
     p
         a(href='/users') "Log Out" / Back to Everyone
@@ -23,9 +23,18 @@ block content
                           button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button', name='user[id]', value='#{other.id}')
                           | &#x9;&#x9;&#x9;&#x9;
                           button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='user[id]', value='#{other.id}')
-                      #panel-background.panel-body.user-panel-green
-                        .user-picture
-                          img(src='../pages/img/sarah.png')
+                      if other.color == 'green'
+                        #panel-background.panel-body.user-panel-green
+                          .user-picture
+                            img(src='../pages/img/sarah.png')
+                      else if(other.color == 'yellow')
+                        #panel-background.panel-body.user-panel-yellow
+                          .user-picture
+                            img(src='../pages/img/sarah.png')
+                      else
+                        #panel-background.panel-body.user-panel-red
+                          .user-picture
+                            img(src='../pages/img/sarah.png')
                           
       //else
       //    p #{user.name} isn't following anyone currently.
@@ -42,9 +51,18 @@ block content
                           button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button', name='user[id]', value='#{user.id}')
                           | &#x9;&#x9;&#x9;&#x9;
                           button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='user[id]', value='#{user.id}')
-                      #panel-background.panel-body.user-panel-red
-                        .user-picture
-                          img(src='../pages/img/sarah.png')
+                      if user.color == 'green'
+                        #panel-background.panel-body.user-panel-green
+                          .user-picture
+                            img(src='../pages/img/sarah.png')
+                      else if(user.color == 'yellow')
+                        #panel-background.panel-body.user-panel-yellow
+                          .user-picture
+                            img(src='../pages/img/sarah.png')
+                      else
+                        #panel-background.panel-body.user-panel-red
+                          .user-picture
+                            img(src='../pages/img/sarah.png')
                           
       else
           p There are no users.
