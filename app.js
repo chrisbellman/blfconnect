@@ -25,25 +25,91 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+//ADDED
+app.use(express.cookieParser('your secret here'));
+app.use(express.session());
+app.use(passport.initialize());
+app.use(passport.session());
+//END ADD
 app.use(app.router);
 
+app.configure('development', function(){
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.configure('production', function(){
+    app.use(express.errorHandler());
+});
+//END ADD
+
 // development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
+//if ('development' == app.get('env')) {
+//  app.use(express.errorHandler());
+//}
 
 app.locals({
     title: 'BLFconnect'    // default title
 });
 
 // Routes
+//app.get('/', routes.site.index);
 
+// ADDED
+// passport config
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
 
+// ADDED THIS BUT IT SHOULD BE IN ROUTES
+app.get('/', function (req, res) {
+  res.render('index', { user : req.user });
+});
 
+app.get('/register', function(req, res) {
+  res.render('register', { });
+});
 
-app.get('/', routes.site.index);
+app.post('/register', function(req, res) {
+    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+        if (err) {
+          return res.render("register", {info: "Sorry. That username already exists. Try again."});
+        }
+
+        passport.authenticate('local')(req, res, function () {
+          res.redirect('/');
+        });
+    });
+});
+
+app.get('/login', function(req, res) {
+  res.render('login', { user : req.user });
+});
+
+app.post('/login', passport.authenticate('local'), function(req, res) {
+  res.redirect('/');
+});
+
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
+app.get('/ping', function(req, res){
+  res.send("pong!", 200);
+});
+
+// mongoose
+mongoose.connect('mongodb://localhost/passport_local_mongoose');
+// END ADD
+
 app.get('/dashboard', routes.dashboard.list);
 
+app.get('/users:id/users', routes.profile.list);
+app.post('users:id/users', routes.profile.create);
+app.get('/users/:id/profile/:id', routes.profile.show);
+app.post('/users/:id/profile/:id', routes.profile.edit);
+app.del('/users/:id/profile/:id', routes.profile.del);
 
 app.get('/users', routes.users.list);
 app.post('/users', routes.users.create);
