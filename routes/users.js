@@ -36,11 +36,11 @@ exports.show = function (req, res, next) {
     User.get(req.params.id, function (err, user) {
         if (err) return next(err);
         // TODO also fetch and show followers? (not just follow*ing*)
-        user.getFollowingAndOthers(function (err, following, others) {
+        user.getFollowingAndOthers(function (err, others) {
             if (err) return next(err);
             res.render('user', {
                 user: user,
-                following: following,
+                //following: following,
                 others: others
             });
         });

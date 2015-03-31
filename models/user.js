@@ -110,7 +110,7 @@ User.prototype.unfollow = function (other, callback) {
     });
 };
 
-// NOT CURRENTLY USED...or maybe now but need to generalize
+// need to generalize / currently used for yellow only (hardcoded)
 User.prototype.updateRelationshipParam = function (other, callback) {
     var query = [
         'MATCH (user:User) -[rel:connection]-> (other:User)',
@@ -172,12 +172,12 @@ User.prototype.getFollowingAndOthers = function (callback) {
     db.query(query, params, function (err, results) {
         if (err) return callback(err);
 
-        var following = [];
+        //var following = [];
         var others = [];
 
         for (var i = 0; i < results.length; i++) {
             var other = new User(results[i]['other']);
-            var follows = results[i]['COUNT(rel)'];
+            //var follows = results[i]['COUNT(rel)'];
           
             //console.log(JSON.stringify(other));
           
@@ -194,17 +194,19 @@ User.prototype.getFollowingAndOthers = function (callback) {
             // A LOT OF THIS CODE IS UNNECESSARY WITH NEW COLOR ATTRIBUTE
             if (user.id === other.id) {
                 continue;
-            } else if (follows) {
-                following.push(other);
-            } else {
-                others.push(other);
             }
+            //} else if (follows) {
+            //    following.push(other);
+            //} else {
+                others.push(other);
+            //}
         }
       
         //console.log("FOLLOWING: " + JSON.stringify(following));
         //console.log("OTHERS: " + JSON.stringify(others));
 
-        callback(null, following, others);
+        //callback(null, following, others);
+        callback(null, others);
     });
 };
 
