@@ -75,20 +75,55 @@ exports.del = function (req, res, next) {
 };
 
 /**
- * POST /users/:id/follow
+ * POST /users/:id/green
  */
-exports.follow = function (req, res, next) {
+exports.green = function (req, res, next) {
     User.get(req.params.id, function (err, user) {
         if (err) return next(err);
         User.get(req.body.user.id, function (err, other) {
             if (err) return next(err);
-            user.follow(other, function (err) {
+            user.green(other, function (err) {
                 if (err) return next(err);
                 res.redirect('/users/' + user.id);
             });
         });
     });
 };
+
+/**
+ * POST /users/:id/yellow
+ */
+exports.yellow = function (req, res, next) {
+    User.get(req.params.id, function (err, user) {
+        if (err) return next(err);
+        User.get(req.body.user.id, function (err, other) {
+            if (err) return next(err);
+            user.yellow(other, function (err) {
+                if (err) return next(err);
+                res.redirect('/users/' + user.id);
+            });
+        });
+    });
+};
+
+/**
+ * POST /users/:id/red
+ */
+exports.red = function (req, res, next) {
+    User.get(req.params.id, function (err, user) {
+        if (err) return next(err);
+        User.get(req.body.user.id, function (err, other) {
+            if (err) return next(err);
+            user.red(other, function (err) {
+                if (err) return next(err);
+                res.redirect('/users/' + user.id);
+            });
+        });
+    });
+};
+
+
+// HERE DOWN IS DEPRECATED 
 
 /**
  * POST /users/:id/unfollow

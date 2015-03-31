@@ -2,6 +2,7 @@ extends layout
 
 block vars
   - var h1 = "Logged in as: " + user.name
+  - var thisUserId = user.id
   //- console.log(JSON.stringify(following))
 
 block content
@@ -15,7 +16,8 @@ block content
               .col-md-3.col-sm-4
                   .panel.panel-default
                       .panel-heading
-                        a(href='/users/#{user.id}/profile/#{user.id}') #{user.name}
+                        //a(href='/users/#{thisUserId}/profile/#{user.id}') #{user.name}
+                        a(href='/profile/#{user.id}') #{user.name}
                         .pull-right
                           button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button', name='user[id]', value='#{user.id}')
                           | &#x9;&#x9;&#x9;&#x9;
@@ -61,7 +63,7 @@ block scripts
       $('.green-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{user.id}/follow',
+            url: '/users/#{user.id}/green',
             type: 'post',
             data: $(this),
             success: function(data) {
@@ -85,7 +87,7 @@ block scripts
       $('.red-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{user.id}/unfollow',
+            url: '/users/#{user.id}/red',
             type: 'post',
             data: $(this),
             success: function(data) {

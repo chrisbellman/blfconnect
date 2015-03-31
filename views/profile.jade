@@ -25,7 +25,7 @@ block scripts
       $('.green-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{user.id}/follow',
+            url: '/users/#{user.id}/green',
             type: 'post',
             data: $(this),
             success: function(data) {
@@ -49,7 +49,7 @@ block scripts
       $('.red-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{user.id}/unfollow',
+            url: '/users/#{user.id}/red',
             type: 'post',
             data: $(this),
             success: function(data) {

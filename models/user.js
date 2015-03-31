@@ -83,8 +83,20 @@ User.prototype.del = function (callback) {
 // NEXT FEW FUNCTIONS; NEED TO CHECK IF RELATIONSHIP EXISTS. IF NO, ADD WITH CORRECT COLOR. IF YES, UPDATE.
 
 // Might want to take the stuff out of {} and use another function to set color if there isn't...
-User.prototype.follow = function (other, callback) {
+User.prototype.green = function (other, callback) {
     this._node.createRelationshipTo(other._node, 'connection', {'color':'green'}, function (err, rel) {
+        callback(err);
+    });
+};
+
+User.prototype.yellow = function (other, callback) {
+    this._node.createRelationshipTo(other._node, 'connection', {'color':'yellow'}, function (err, rel) {
+        callback(err);
+    });
+};
+
+User.prototype.red = function (other, callback) {
+    this._node.createRelationshipTo(other._node, 'connection', {'color':'red'}, function (err, rel) {
         callback(err);
     });
 };
