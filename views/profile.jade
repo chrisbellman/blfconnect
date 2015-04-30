@@ -7,7 +7,7 @@ block content
     //h1 Users
 
     .row
-      .col-md-4
+      .col-md-4.col-sm-6
         .panel.panel-default
             .panel-heading #{user.name}
               .pull-right
@@ -18,7 +18,16 @@ block content
                 button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='user[id]', value='#{user.id}')
             #panel-background.panel-body.user-panel-green
               .user-picture
-                img(src='../pages/img/sarah.png')
+                img(src='../pages/img/#{user.picture}.png')
+      .col-md-8.col-sm-6
+        h5 Major
+        p #{user.major}
+        h5 Location
+        p #{user.location}
+        h5 Relation to BLF
+        p #{user.blfrelation}
+        h5 Biography
+        p #{user.bio}
                 
 block scripts
     script.

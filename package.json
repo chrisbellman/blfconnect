@@ -1,4 +1,3 @@
-// THIS NEEDS TO BE UPDATED; MONGOOSE AND PASSPORT LOCAL MONGOOSE MISSING
 { "name": "BLFconnect"
 , "description": "App using Neo4j and NodeJS"
 , "version": "0.0.1"

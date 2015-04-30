@@ -27,15 +27,18 @@ block content
                       if user.color == 'green'
                         #panel-background.panel-body.user-panel-green
                           .user-picture
-                            img(src='../pages/img/sarah.png')
+                            a(href='/profile/#{user.id}')
+                              img(src='../pages/img/#{user.picture}.png')
                       else if(user.color == 'yellow')
                         #panel-background.panel-body.user-panel-yellow
                           .user-picture
-                            img(src='../pages/img/sarah.png')
+                            a(href='/profile/#{user.id}')
+                              img(src='../pages/img/#{user.picture}.png')
                       else
                         #panel-background.panel-body.user-panel-red
                           .user-picture
-                            img(src='../pages/img/sarah.png')
+                            a(href='/profile/#{user.id}')
+                              img(src='/pages/img/#{user.picture}.png')
                           
       else
           p There are no users.

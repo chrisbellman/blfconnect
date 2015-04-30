@@ -31,6 +31,16 @@ Object.defineProperty(User.prototype, 'name', {
     }
 });
 
+Object.defineProperty(User.prototype, 'color', {
+    get: function () {
+        return this._node.data['color'];
+    },
+    set: function (color) {
+        this._node.data['color'] = color;
+    }
+});
+
+// ALL THE FIELDS I'M NOW ADDING
 Object.defineProperty(User.prototype, 'major', {
     get: function () {
         return this._node.data['major'];
@@ -40,12 +50,39 @@ Object.defineProperty(User.prototype, 'major', {
     }
 });
 
-Object.defineProperty(User.prototype, 'color', {
+Object.defineProperty(User.prototype, 'location', {
     get: function () {
-        return this._node.data['color'];
+        return this._node.data['location'];
     },
-    set: function (color) {
-        this._node.data['color'] = color;
+    set: function (location) {
+        this._node.data['location'] = location;
+    }
+});
+
+Object.defineProperty(User.prototype, 'blfrelation', {
+    get: function () {
+        return this._node.data['blfrelation'];
+    },
+    set: function (blfrelation) {
+        this._node.data['blfrelation'] = blfrelation;
+    }
+});
+
+Object.defineProperty(User.prototype, 'picture', {
+    get: function () {
+        return this._node.data['picture'];
+    },
+    set: function (picture) {
+        this._node.data['picture'] = picture;
+    }
+});
+
+Object.defineProperty(User.prototype, 'bio', {
+    get: function () {
+        return this._node.data['bio'];
+    },
+    set: function (bio) {
+        this._node.data['bio'] = bio;
     }
 });
 
@@ -81,7 +118,7 @@ User.prototype.del = function (callback) {
 };
 
 // NEXT FEW FUNCTIONS; NEED TO CHECK IF RELATIONSHIP EXISTS. IF NO, ADD WITH CORRECT COLOR. IF YES, UPDATE.
-
+// SO THE ISSUE WITH THESE IS THAT IT COMPLETELY RE-CREATES THE RELATIONSHIP AND DELETES ANY ATTRIBUTES ALREADY IN THERE. THIS WILL NOT FLY.
 // Might want to take the stuff out of {} and use another function to set color if there isn't...
 User.prototype.green = function (other, callback) {
     this._node.createRelationshipTo(other._node, 'connection', {'color':'green'}, function (err, rel) {

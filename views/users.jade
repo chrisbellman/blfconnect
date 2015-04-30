@@ -26,7 +26,8 @@ block content
                 //#panel-background.panel-body.user-panel-green
                 #panel-background.panel-body
                   .user-picture
-                    img(src='/pages/img/sarah.png')
+                    a(href='/users/#{user.id}')
+                      img(src='/pages/img/#{user.picture}.png')
                       
     else
       p There are no users currently.
@@ -39,4 +40,8 @@ block content
               //label(for='inputUser') Create a new user
               input#inputUser.form-control(type='text', name='name', placeholder="Enter a new user's name", style='width: 100%', required)
               input#inputUser.form-control(type='text', name='major', placeholder="Enter a new user's major", style='width: 100%', required)
-            button.btn.btn-success(type='submit', value='Create', style='margin-left: 5px;') Create
+              input#inputUser.form-control(type='text', name='location', placeholder="Enter a new user's location", style='width: 100%', required)
+              input#inputUser.form-control(type='text', name='blfrelation', placeholder="Enter a new user's relation to BLF", style='width: 100%', required)
+              input#inputUser.form-control(type='text', name='picture', placeholder="Enter a new user's picture (name)", style='width: 100%', required)
+              input#inputUser.form-control(type='text', name='bio', placeholder="Enter a new user's bio", style='width: 100%', required)
+              button.btn.btn-success.pull-right(type='submit', value='Create', style='margin-left: 5px;') Create
