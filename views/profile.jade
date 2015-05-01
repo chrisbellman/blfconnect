@@ -1,40 +1,58 @@
 extends layout
 
 block vars
-  - var h1 = "Profile for " + user.name
+  - var h1 = "Profile for " + otheruser.name
+  - console.log("USER ID: " + user.id);
+  - console.log("OTHER USER ID: " + otheruser.id);
+  - console.log(otheruser.color);
+  - console.log(user.color);
+  //- var otherUser = otheruser.id
 
 block content
     //h1 Users
-
+    
     .row
       .col-md-4.col-sm-6
         .panel.panel-default
-            .panel-heading #{user.name}
+            .panel-heading #{otheruser.name}
               .pull-right
-                button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button', name='user[id]', value='#{user.id}')
+                button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button', name='otheruser[id]', value='#{otheruser.id}')
                 | &#x9;&#x9;&#x9;&#x9;
-                button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button', name='user[id]', value='#{user.id}')
+                button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button', name='otheruser[id]', value='#{otheruser.id}')
                 | &#x9;&#x9;&#x9;&#x9;
-                button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='user[id]', value='#{user.id}')
-            #panel-background.panel-body.user-panel-green
-              .user-picture
-                img(src='../pages/img/#{user.picture}.png')
+                button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='otheruser[id]', value='#{otheruser.id}')
+            if others.length
+              for user in others
+                if user.id == otheruser.id
+                  if user.color == 'green'
+                    #panel-background.panel-body.user-panel-green
+                      .user-picture
+                        img(src='../../../pages/img/#{otheruser.picture}.png')
+                  else if user.color == 'yellow'
+                    #panel-background.panel-body.user-panel-yellow
+                      .user-picture
+                        img(src='../../../pages/img/#{otheruser.picture}.png')
+                  else
+                    #panel-background.panel-body.user-panel-red
+                      .user-picture
+                        img(src='../../../pages/img/#{otheruser.picture}.png')
+                
       .col-md-8.col-sm-6
         h5 Major
-        p #{user.major}
+        p #{otheruser.major}
         h5 Location
-        p #{user.location}
+        p #{otheruser.location}
         h5 Relation to BLF
-        p #{user.blfrelation}
+        p #{otheruser.blfrelation}
         h5 Biography
-        p #{user.bio}
+        p #{otheruser.bio}
                 
 block scripts
     script.
       $('.green-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{user.id}/green',
+            url: '/users/#{otheruser.id}/green',
             type: 'post',
             data: $(this),
             success: function(data) {
@@ -46,7 +64,7 @@ block scripts
       $('.yellow-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{user.id}/yellow',
+            url: '/users/#{otheruser.id}/yellow',
             type: 'post',
             data: $(this),
             success: function(data) {
@@ -58,7 +76,7 @@ block scripts
       $('.red-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{user.id}/red',
+            url: '/users/#{otheruser.id}/red',
             type: 'post',
             data: $(this),
             success: function(data) {

@@ -39,13 +39,34 @@ exports.create = function (req, res, next) {
 exports.show = function (req, res, next) {
     User.get(req.params.id, function (err, user) {
         if (err) return next(err);
-        // TODO also fetch and show followers? (not just follow*ing*)
         user.getFollowingAndOthers(function (err, others) {
             if (err) return next(err);
             res.render('user', {
                 user: user,
                 //following: following,
                 others: others
+            });
+        });
+    });
+};
+
+/**
+ * GET /users/:id/profile/:otherid
+ */
+exports.showProfile = function (req, res, next) {
+    User.get(req.params.id, function (err, user) {
+        if (err) return next(err);
+      
+        user.getFollowingAndOthers(function (err, others) {
+            if (err) return next(err);
+          
+            User.get(req.params.otherid, function (err, otheruser) {
+                if (err) return next(err);
+                res.render('profile', {
+                    user: user,
+                    otheruser: otheruser,
+                    others: others
+                });
             });
         });
     });
@@ -125,7 +146,6 @@ exports.red = function (req, res, next) {
         });
     });
 };
-
 
 // HERE DOWN IS DEPRECATED 
 

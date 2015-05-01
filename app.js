@@ -118,23 +118,26 @@ app.get('/dashboard', loggedIn, routes.dashboard.list);
 
 //app.get('/users/:id/users', loggedIn, routes.profile.list);
 //app.post('users/:id/users', loggedIn, routes.profile.create);
-//app.get('/users/:id/profile/:id', loggedIn, routes.profile.show);
-//app.post('/users/:id/profile/:id', loggedIn, routes.profile.edit);
-//app.del('/users/:id/profile/:id', loggedIn, routes.profile.del);
+//app.get('/users/:id/profile/:otherid', loggedIn, routes.profile.show);
+//app.post('/users/:id/profile/:otherid', loggedIn, routes.profile.edit);
+//app.del('/users/:id/profile/:otherid', loggedIn, routes.profile.del);
 
 // What are these first two?
-app.get('/users/:id/users', loggedIn, routes.profile.list);
-app.post('users/:id/users', loggedIn, routes.profile.create);
+//app.get('/users/:id/users', loggedIn, routes.profile.list);
+//app.post('users/:id/users', loggedIn, routes.profile.create);
+
 // Probably need to edit these so user remains logged in(?)
-app.get('/profile/:id', loggedIn, routes.profile.show);
-app.post('/profile/:id', loggedIn, routes.profile.edit);
-app.del('/profile/:id', loggedIn, routes.profile.del);
+//app.get('/profile/:id', loggedIn, routes.profile.show);
+//app.post('/profile/:id', loggedIn, routes.profile.edit);
+//app.del('/profile/:id', loggedIn, routes.profile.del);
 
 app.get('/users', loggedIn, routes.users.list);
 app.post('/users', loggedIn, routes.users.create);
 app.get('/users/:id', loggedIn, routes.users.show);
 app.post('/users/:id', loggedIn, routes.users.edit);
 app.del('/users/:id', loggedIn, routes.users.del);
+
+app.get('/users/:id/profile/:otherid', loggedIn, routes.users.showProfile);
 
 app.post('/users/:id/green', loggedIn, routes.users.green);
 app.post('/users/:id/yellow', loggedIn, routes.users.yellow);

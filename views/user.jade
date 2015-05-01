@@ -16,8 +16,8 @@ block content
               .col-md-3.col-sm-4
                   .panel.panel-default
                       .panel-heading
-                        //a(href='/users/#{thisUserId}/profile/#{user.id}') #{user.name}
-                        a(href='/profile/#{user.id}') #{user.name}
+                        a(href='/users/#{thisUserId}/profile/#{user.id}') #{user.name}
+                        //a(href='/profile/#{user.id}') #{user.name}
                         .pull-right
                           button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button', name='user[id]', value='#{user.id}')
                           | &#x9;&#x9;&#x9;&#x9;
@@ -27,17 +27,17 @@ block content
                       if user.color == 'green'
                         #panel-background.panel-body.user-panel-green
                           .user-picture
-                            a(href='/profile/#{user.id}')
+                            a(href='/users/#{thisUserId}/profile/#{user.id}')
                               img(src='../pages/img/#{user.picture}.png')
                       else if(user.color == 'yellow')
                         #panel-background.panel-body.user-panel-yellow
                           .user-picture
-                            a(href='/profile/#{user.id}')
+                            a(href='/users/#{thisUserId}/profile/#{user.id}')
                               img(src='../pages/img/#{user.picture}.png')
                       else
                         #panel-background.panel-body.user-panel-red
                           .user-picture
-                            a(href='/profile/#{user.id}')
+                            a(href='/users/#{thisUserId}/profile/#{user.id}')
                               img(src='/pages/img/#{user.picture}.png')
                           
       else
