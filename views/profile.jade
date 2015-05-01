@@ -2,11 +2,15 @@ extends layout
 
 block vars
   - var h1 = "Profile for " + otheruser.name
+  - var thisUserId = user.id
   - console.log("USER ID: " + user.id);
   - console.log("OTHER USER ID: " + otheruser.id);
 
 block content
     //h1 Users
+    
+    p
+      a(href='/users/#{thisUserId}') Back to all profiles
     
     .row
       if others.length
