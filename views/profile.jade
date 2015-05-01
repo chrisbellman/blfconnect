@@ -53,7 +53,7 @@ block scripts
       $('.green-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{user.id}/green',
+            url: '/users/#{user.id}/profile/green',
             type: 'post',
             data: $(this),
             success: function(data) {
@@ -65,7 +65,7 @@ block scripts
       $('.yellow-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{user.id}/yellow',
+            url: '/users/#{user.id}/profile/yellow',
             type: 'post',
             data: $(this),
             success: function(data) {
@@ -77,7 +77,7 @@ block scripts
       $('.red-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{user.id}/red',
+            url: '/users/#{user.id}/profile/red',
             type: 'post',
             data: $(this),
             success: function(data) {

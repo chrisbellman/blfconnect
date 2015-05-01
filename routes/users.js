@@ -150,7 +150,7 @@ exports.red = function (req, res, next) {
 /**
  * POST /users/:id/profile/:otherid/green
  */
-exports.green = function (req, res, next) {
+exports.greenProf = function (req, res, next) {
     User.get(req.params.id, function (err, user) {
         if (err) return next(err);
         User.get(req.body.otheruser.id, function (err, other) {
@@ -166,7 +166,7 @@ exports.green = function (req, res, next) {
 /**
  * POST /users/:id/profile/:otherid/yellow
  */
-exports.yellow = function (req, res, next) {
+exports.yellowProf = function (req, res, next) {
     User.get(req.params.id, function (err, user) {
         if (err) return next(err);
         User.get(req.body.otheruser.id, function (err, other) {
@@ -182,7 +182,7 @@ exports.yellow = function (req, res, next) {
 /**
  * POST /users/:id/profile/:otherid/red
  */
-exports.red = function (req, res, next) {
+exports.redProf = function (req, res, next) {
     User.get(req.params.id, function (err, user) {
         if (err) return next(err);
         User.get(req.body.otheruser.id, function (err, other) {

@@ -138,6 +138,9 @@ app.post('/users/:id', loggedIn, routes.users.edit);
 app.del('/users/:id', loggedIn, routes.users.del);
 
 app.get('/users/:id/profile/:otherid', loggedIn, routes.users.showProfile);
+app.post('/users/:id/profile/green', loggedIn, routes.users.greenProf);
+app.post('/users/:id/profile/yellow', loggedIn, routes.users.yellowProf);
+app.post('/users/:id/profile/red', loggedIn, routes.users.redProf);
 
 app.post('/users/:id/green', loggedIn, routes.users.green);
 app.post('/users/:id/yellow', loggedIn, routes.users.yellow);
