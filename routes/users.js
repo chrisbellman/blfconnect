@@ -147,6 +147,54 @@ exports.red = function (req, res, next) {
     });
 };
 
+/**
+ * POST /users/:id/profile/:otherid/green
+ */
+exports.green = function (req, res, next) {
+    User.get(req.params.id, function (err, user) {
+        if (err) return next(err);
+        User.get(req.body.otheruser.id, function (err, other) {
+            if (err) return next(err);
+            user.green(other, function (err) {
+                if (err) return next(err);
+                res.redirect('/users/' + user.id);
+            });
+        });
+    });
+};
+
+/**
+ * POST /users/:id/profile/:otherid/yellow
+ */
+exports.yellow = function (req, res, next) {
+    User.get(req.params.id, function (err, user) {
+        if (err) return next(err);
+        User.get(req.body.otheruser.id, function (err, other) {
+            if (err) return next(err);
+            user.yellow(other, function (err) {
+                if (err) return next(err);
+                res.redirect('/users/' + user.id);
+            });
+        });
+    });
+};
+
+/**
+ * POST /users/:id/profile/:otherid/red
+ */
+exports.red = function (req, res, next) {
+    User.get(req.params.id, function (err, user) {
+        if (err) return next(err);
+        User.get(req.body.otheruser.id, function (err, other) {
+            if (err) return next(err);
+            user.red(other, function (err) {
+                if (err) return next(err);
+                res.redirect('/users/' + user.id);
+            });
+        });
+    });
+};
+
 // HERE DOWN IS DEPRECATED 
 
 /**

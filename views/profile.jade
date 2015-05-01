@@ -4,26 +4,23 @@ block vars
   - var h1 = "Profile for " + otheruser.name
   - console.log("USER ID: " + user.id);
   - console.log("OTHER USER ID: " + otheruser.id);
-  - console.log(otheruser.color);
-  - console.log(user.color);
-  //- var otherUser = otheruser.id
 
 block content
     //h1 Users
     
     .row
-      .col-md-4.col-sm-6
-        .panel.panel-default
-            .panel-heading #{otheruser.name}
-              .pull-right
-                button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button', name='otheruser[id]', value='#{otheruser.id}')
-                | &#x9;&#x9;&#x9;&#x9;
-                button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button', name='otheruser[id]', value='#{otheruser.id}')
-                | &#x9;&#x9;&#x9;&#x9;
-                button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='otheruser[id]', value='#{otheruser.id}')
-            if others.length
-              for user in others
-                if user.id == otheruser.id
+      if others.length
+        for user in others
+          if user.id == otheruser.id
+            .col-md-4.col-sm-6
+              .panel.panel-default
+                  .panel-heading #{otheruser.name}
+                    .pull-right
+                      button.btn.btn-success.btn-circle.btn-stoplight.green-button(type='button', name='otheruser[id]', value='#{otheruser.id}')
+                      | &#x9;&#x9;&#x9;&#x9;
+                      button.btn.btn-warning.btn-circle.btn-stoplight.yellow-button(type='button', name='otheruser[id]', value='#{otheruser.id}')
+                      | &#x9;&#x9;&#x9;&#x9;
+                      button.btn.btn-danger.btn-circle.btn-stoplight.red-button(type='button', name='otheruser[id]', value='#{otheruser.id}')
                   if user.color == 'green'
                     #panel-background.panel-body.user-panel-green
                       .user-picture
@@ -52,7 +49,7 @@ block scripts
       $('.green-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{otheruser.id}/green',
+            url: '/users/#{user.id}/green',
             type: 'post',
             data: $(this),
             success: function(data) {
@@ -64,7 +61,7 @@ block scripts
       $('.yellow-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{otheruser.id}/yellow',
+            url: '/users/#{user.id}/yellow',
             type: 'post',
             data: $(this),
             success: function(data) {
@@ -76,7 +73,7 @@ block scripts
       $('.red-button').click( function() {
         var element = this;
         $.ajax({
-            url: '/users/#{otheruser.id}/red',
+            url: '/users/#{user.id}/red',
             type: 'post',
             data: $(this),
             success: function(data) {
